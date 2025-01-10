@@ -48,7 +48,7 @@ async function postGame(): Promise<boolean> {
     // 날짜 변환
     const dateString: string = responseGameReleasedDate.value?.toLocaleDateString("ko-KR") as string;
     const dateParsedArray: Array<string> = dateString.split(". ");
-    const isoDate: string = `${dateParsedArray[0]}-${dateParsedArray[1]}-${dateParsedArray[2]}T00:00:00.000Z`;
+    const isoDate: string = `${dateParsedArray[0]}-${dateParsedArray[1]}-${dateParsedArray[2].split('.')[0]}T00:00:00.000Z`;
 
     const postGame: Game = {
       gameId: responseGameId.value,
