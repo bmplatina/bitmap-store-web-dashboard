@@ -144,7 +144,7 @@ onMounted(() => {
     </v-card>
     <v-divider></v-divider>
     <v-card :title="$t('gameLatestRevision')" :text="$t('gameLatestRevisionDesc')">
-      <v-text-field v-model="responseGameLatestRevision" :label="$t('gameLatestRevision')"></v-text-field>
+      <v-text-field v-model="responseGameLatestRevision" :label="$t('gameLatestRevision')" type="number"></v-text-field>
     </v-card>
     <v-divider></v-divider>
     <v-card :title="$t('gamePlatform')" :text="$t('gamePlatformDesc')">
