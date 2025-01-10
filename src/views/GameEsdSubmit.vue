@@ -47,18 +47,8 @@ async function postGame(): Promise<boolean> {
 
     // 날짜 변환
     const dateString: string = responseGameReleasedDate.value?.toLocaleDateString("ko-KR") as string;
-
-    // 공백 제거 및 '.'을 '-'로 대체하여 '2024-12-10' 형식으로 변환
-    const formattedDateString = dateString.replace(/\s/g, '').replace(/\./g, '-');
-
-    // '2024-12-10'을 '2024-12-10T00:00:00'으로 변환
-    const dateTimeString = `${formattedDateString}T00:00:00`;
-
-    // Date 객체 생성 (로컬 시간 기준)
-    const date = new Date(dateTimeString);
-
-    // ISO 8601 형식의 문자열로 변환
-    const isoString = date.toISOString();
+    const dateParsedArray: Array<string> = dateString.split(". ");
+    const isoDate: string = `${dateParsedArray[0]}-${dateParsedArray[1]}-${dateParsedArray[2]}T00:00:00.000Z`;
 
     const postGame: Game = {
       gameId: responseGameId.value,
@@ -73,7 +63,7 @@ async function postGame(): Promise<boolean> {
       gamePublisher: responseGamePublisher.value,
       isEarlyAccess: responseIsEarlyAccess.value == true ? 1 : 0,
       isReleased: responseIsReleased.value == true ? 1 : 0,
-      gameReleasedDate: isoString,
+      gameReleasedDate: isoDate,
       gameWebsite: responseGameWebsite.value,
       gameVideoURL: responseGameVideoURL.value,
       gameDownloadMacURL: responseGameDownloadMacURL.value,
