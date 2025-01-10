@@ -79,6 +79,7 @@
     "edit-md": "마크다운 편집하기",
     "submit": "제출",
     "submitting": "다음 게임 제출하는 중: ",
+    "submit-warning": "게임을 제출하면 수정할 수 없으니 미리 보기를 보고 신중히 결정하십시오.",
 
     "filter": "필터",
     "delete": "삭제",

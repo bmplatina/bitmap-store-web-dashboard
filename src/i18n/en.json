@@ -79,6 +79,7 @@
   "edit-md": "Edit as Markdown",
   "submit": "Submit",
   "submitting": "Submitting ",
+  "submit-warning": "After submitting your game, redacting is not allowed. So please watch preview and submit carefully.",
 
   "filter": "Filter",
   "delete": "Delete",

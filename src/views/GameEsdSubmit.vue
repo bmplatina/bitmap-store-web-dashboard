@@ -3,11 +3,81 @@ import { reactive, ref, onMounted } from "vue";
 import { Game } from "@/GameQuery";
 import axios from "axios";
 import { MdEditor, MdPreview, MdCatalog } from "md-editor-v3";
+import GameEsdDetails from "@/components/GameEsdDetails.vue";
 
 /*
  * Modal State
  */
+let bIsPreSumbitPreviewModalOpened = ref(false);
 let bIsMarkdownModalOpened = ref(false);
+
+let previewGameObject: Game;
+
+function openPreSubmitPreviewModal() {
+  previewGameObject = {
+    gameId: responseGameId.value,
+    gameTitle: responseGameTitle.value,
+    gameLatestRevision: responseGameLatestRevision.value,
+    gamePlatformWindows: responseGamePlatformWindows.value == true ? 1 : 0,
+    gamePlatformMac: responseGamePlatformMac.value == true ? 1 : 0,
+    gamePlatformMobile: responseGamePlatformMobile.value == true ? 1 : 0,
+    gameEngine: responseGameEngine.value,
+    gameGenre: responseGameGenre.value,
+    gameDeveloper: responseGameDeveloper.value,
+    gamePublisher: responseGamePublisher.value,
+    isEarlyAccess: responseIsEarlyAccess.value == true ? 1 : 0,
+    isReleased: responseIsReleased.value == true ? 1 : 0,
+    gameReleasedDate: responseGameReleasedDate.value?.toLocaleDateString("ko-KR") as string,
+    gameWebsite: responseGameWebsite.value,
+    gameVideoURL: responseGameVideoURL.value,
+    gameDownloadMacURL: responseGameDownloadMacURL.value,
+    gameDownloadWinURL: responseGameDownloadWinURL.value,
+    gameImageURL: responseGameImageURL.value,
+    gameBinaryName: responseGameBinaryName.value,
+    gameHeadline: responseGameHeadline.value,
+    gameDescription: responseGameDescription.value,
+  };
+
+  bIsPreSumbitPreviewModalOpened.value = true;
+}
+
+async function postGame(): Promise<boolean> {
+  try {
+    bIsPreSumbitPreviewModalOpened.value = true;
+    const postGame: Game = {
+      gameId: responseGameId.value,
+      gameTitle: responseGameTitle.value,
+      gameLatestRevision: responseGameLatestRevision.value,
+      gamePlatformWindows: responseGamePlatformWindows.value == true ? 1 : 0,
+      gamePlatformMac: responseGamePlatformMac.value == true ? 1 : 0,
+      gamePlatformMobile: responseGamePlatformMobile.value == true ? 1 : 0,
+      gameEngine: responseGameEngine.value,
+      gameGenre: responseGameGenre.value,
+      gameDeveloper: responseGameDeveloper.value,
+      gamePublisher: responseGamePublisher.value,
+      isEarlyAccess: responseIsEarlyAccess.value == true ? 1 : 0,
+      isReleased: responseIsReleased.value == true ? 1 : 0,
+      gameReleasedDate: responseGameReleasedDate.value?.toLocaleDateString("ko-KR") as string,
+      gameWebsite: responseGameWebsite.value,
+      gameVideoURL: responseGameVideoURL.value,
+      gameDownloadMacURL: responseGameDownloadMacURL.value,
+      gameDownloadWinURL: responseGameDownloadWinURL.value,
+      gameImageURL: responseGameImageURL.value,
+      gameBinaryName: responseGameBinaryName.value,
+      gameHeadline: responseGameHeadline.value,
+      gameDescription: responseGameDescription.value,
+    };
+    const response = await axios.post<Game>("https://api.prodbybitmap.com/api/games/push", postGame);
+    console.log("Submit succeed: ", response.data);
+    bIsPreSumbitPreviewModalOpened.value = false;
+    return true;
+  }
+  catch (error) {
+    console.error("Error submitting:", error);
+    bIsPreSumbitPreviewModalOpened.value = false;
+    return false;
+  }
+}
 
 /*
  * Game Info for ESD
@@ -54,47 +124,6 @@ async function fetchGames() {
     state.error = '게임 데이터를 가져오는 중 오류가 발생했습니다.';
     state.loading = false;
     console.error('Error fetching games:', error);
-  }
-}
-
-
-let bIsGamePosting = ref(false);
-
-async function postGame(): Promise<boolean> {
-  try {
-    bIsGamePosting.value = true;
-    const postGame: Game = {
-      gameId: responseGameId.value,
-      gameTitle: responseGameTitle.value,
-      gameLatestRevision: responseGameLatestRevision.value,
-      gamePlatformWindows: responseGamePlatformWindows.value == true ? 1 : 0,
-      gamePlatformMac: responseGamePlatformMac.value == true ? 1 : 0,
-      gamePlatformMobile: responseGamePlatformMobile.value == true ? 1 : 0,
-      gameEngine: responseGameEngine.value,
-      gameGenre: responseGameGenre.value,
-      gameDeveloper: responseGameDeveloper.value,
-      gamePublisher: responseGamePublisher.value,
-      isEarlyAccess: responseIsEarlyAccess.value == true ? 1 : 0,
-      isReleased: responseIsReleased.value == true ? 1 : 0,
-      gameReleasedDate: responseGameReleasedDate.value?.toLocaleDateString("ko-KR") as string,
-      gameWebsite: responseGameWebsite.value,
-      gameVideoURL: responseGameVideoURL.value,
-      gameDownloadMacURL: responseGameDownloadMacURL.value,
-      gameDownloadWinURL: responseGameDownloadWinURL.value,
-      gameImageURL: responseGameImageURL.value,
-      gameBinaryName: responseGameBinaryName.value,
-      gameHeadline: responseGameHeadline.value,
-      gameDescription: responseGameDescription.value,
-    };
-    const response = await axios.post<Game>("https://api.prodbybitmap.com/api/games/push", postGame);
-    console.log("Submit succeed: ", response.data);
-    bIsGamePosting.value = false;
-    return true;
-  }
-  catch (error) {
-    console.error("Error submitting:", error);
-    bIsGamePosting.value = false;
-    return false;
   }
 }
 
@@ -185,7 +214,7 @@ onMounted(() => {
       </v-card-actions>
     </v-card>
     <v-spacer />
-    <v-btn tonal @click="postGame()" :text="$t('submit')" />
+    <v-btn tonal @click="openPreSubmitPreviewModal()" :text="$t('submit')" />
 
     <!-- 마크다운 편집 모달 -->
     <v-dialog v-model="bIsMarkdownModalOpened">
@@ -195,9 +224,15 @@ onMounted(() => {
     </v-dialog>
 
     <!-- 제출 모달 -->
-    <v-dialog v-model="bIsGamePosting" persistent>
-      <v-card :title="$t('submitting') + responseGameTitle">
-        <v-progress-circular indeterminate />
+    <v-dialog v-model="bIsPreSumbitPreviewModalOpened" width="40%" persistent>
+      <v-card :title="$t('submitting') + responseGameTitle" :text="$t('submit-warning')">
+        <v-divider />
+        <GameEsdDetails :gameObject="previewGameObject" />
+        <v-divider />
+        <v-card-actions>
+          <v-btn @click="postGame()" :text="$t('submit')" variant="tonal" color="primary" />
+          <v-btn @click="bIsPreSumbitPreviewModalOpened = false" :text="$t('cancel')" variant="tonal" color="red" />
+        </v-card-actions>
       </v-card>
     </v-dialog>
   </div>
