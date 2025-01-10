@@ -27,7 +27,7 @@ function openPreSubmitPreviewModal() {
     gamePublisher: responseGamePublisher.value,
     isEarlyAccess: responseIsEarlyAccess.value == true ? 1 : 0,
     isReleased: responseIsReleased.value == true ? 1 : 0,
-    gameReleasedDate: responseGameReleasedDate.value?.toLocaleDateString("ko-KR") as string,
+    gameReleasedDate: formatDateToMySQL(responseGameReleasedDate.value as Date),
     gameWebsite: responseGameWebsite.value,
     gameVideoURL: responseGameVideoURL.value,
     gameDownloadMacURL: responseGameDownloadMacURL.value,
