@@ -106,89 +106,86 @@ onMounted(() => {
 <template>
   <div>
     <!-- Game ID -->
-    <v-card title="게임 ID" text="게임 ID는 자동으로 생성됩니다.">
-      <v-text-field v-model="responseGameId" readonly disabled label="게임 ID"></v-text-field>
+    <v-card :title="$t('gameId')" :text="$t('gameIdDesc')">
+      <v-text-field v-model="responseGameId" readonly disabled :label="$t('gameId')"></v-text-field>
     </v-card>
     <v-divider></v-divider>
-    <v-card title="게임 제목" text="스토어에 표시될 게임 제목입니다.">
-      <v-text-field v-model="responseGameTitle" label="게임 제목"></v-text-field>
+    <v-card :title="$t('gameTitle')" :text="$t('gameTitleDesc')">
+      <v-text-field v-model="responseGameTitle" :label="$t('gameTitle')"></v-text-field>
     </v-card>
     <v-divider></v-divider>
-    <v-card title="게임의 최신 버전" text="제출 시점의 게임의 최신 버전을 입력하세요. 이 값으로 업데이트를 관리합니다.">
-      <v-text-field v-model="responseGameLatestRevision" label="게임 제목"></v-text-field>
+    <v-card :title="$t('gameLatestRevision')" :text="$t('gameLatestRevisionDesc')">
+      <v-text-field v-model="responseGameLatestRevision" :label="$t('gameLatestRevision')"></v-text-field>
     </v-card>
     <v-divider></v-divider>
-    <v-card title="지원하는 플랫폼" text="이 게임이 지원하는 플랫폼을 선택하세요. 이 값으로 플랫폼별 설치 가능 여부를 판단합니다.">
-      <v-checkbox v-model="responseGamePlatformWindows" label="Windows 지원" />
-      <v-checkbox v-model="responseGamePlatformMac" label="macOS 지원" />
-      <v-checkbox v-model="responseGamePlatformMobile" label="Android 또는 iOS (iPadOS) 지원" />
+    <v-card :title="$t('gamePlatform')" :text="$t('gamePlatformDesc')">
+      <v-checkbox v-model="responseGamePlatformWindows" :label="$t('gamePlatformWindows')" />
+      <v-checkbox v-model="responseGamePlatformMac" :label="$t('gamePlatformMac')" />
+      <v-checkbox v-model="responseGamePlatformMobile" :label="$t('gamePlatformMobile')" />
     </v-card>
     <v-divider></v-divider>
-    <v-card title="게임 엔진" text="스토어에 표시될 게임 엔진입니다.">
-      <v-text-field v-model="responseGameEngine" label="게임 엔진"></v-text-field>
+    <v-card :title="$t('gameEngine')" :text="$t('gameEngineDesc')">
+      <v-text-field v-model="responseGameEngine" :label="$t('gameEngine')"></v-text-field>
     </v-card>
     <v-divider></v-divider>
-    <v-card title="게임 장르" text="스토어에 표시될 게임 장르입니다. 콤마(,)로 장르를 구분합니다.">
-      <v-text-field v-model="responseGameGenre" label="게임 장르"></v-text-field>
+    <v-card :title="$t('gameGenre')" :text="$t('gameGenreDesc')">
+      <v-text-field v-model="responseGameGenre" :label="$t('gameGenre')"></v-text-field>
     </v-card>
     <v-divider></v-divider>
-    <v-card title="게임 개발자" text="이 게임을 개발한 사람, 단체, 팀, 혹은 회사를 입력하세요.">
-      <v-text-field v-model="responseGameDeveloper" label="게임 제목"></v-text-field>
+    <v-card :title="$t('gameDeveloper')" :text="$t('gameDeveloperDesc')">
+      <v-text-field v-model="responseGameDeveloper" :label="$t('gameDeveloper')"></v-text-field>
     </v-card>
     <v-divider></v-divider>
-    <v-card title="게임 퍼블리셔" text="이 게임을 배급한 유통사 혹은 전시 이름을 입력하세요.">
-      <v-text-field v-model="responseGamePublisher" label="게임 제목"></v-text-field>
+    <v-card :title="$t('gamePublisher')" :text="$t('gamePublisherDesc')">
+      <v-text-field v-model="responseGamePublisher" :label="$t('gamePublisher')"></v-text-field>
     </v-card>
     <v-divider></v-divider>
-    <v-card title="얼리 액세스" text="이 게임은 얼리 액세스이며 정식 출시 전의 버전입니까?">
-      <v-checkbox v-model="responseIsEarlyAccess" label="얼리 액세스" />
+    <v-card :title="$t('early-access')" :text="$t('isEarlyAccessDesc')">
+      <v-checkbox v-model="responseIsEarlyAccess" :label="$t('early-access')" />
     </v-card>
     <v-divider></v-divider>
-    <v-card title="출시 여부" text="이 게임은 출시되었고 적절한 게임 다운로드 링크가 업로드되었습니까? 선택하지 않는다면 스토어는 게임의 다운로드를 막습니다.">
-      <v-checkbox v-model="responseIsReleased" label="얼리 액세스" />
+    <v-card :title="$t('isReleased')" :text="$t('isReleasedDesc')">
+      <v-checkbox v-model="responseIsReleased" :label="$t('isReleased')" />
     </v-card>
     <v-divider></v-divider>
-    <v-card title="게임 출시일" text="스토어에 표시될 게임 제목입니다.">
+    <v-card :title="$t('gameReleasedDate')" :text="$t('gameReleasedDateDesc')">
       <v-date-picker v-model="responseGameReleasedDate"/>
     </v-card>
     <v-divider></v-divider>
-    <v-card title="게임 공식 웹사이트" text="스토어에서 리다이렉트할 수 있는 게임의 공식 웹사이트입니다.">
-      <v-text-field v-model="responseGameWebsite" label="게임 공식 웹사이트"></v-text-field>
+    <v-card :title="$t('gameWebsite')" :text="$t('gameWebsiteDesc')">
+      <v-text-field v-model="responseGameWebsite" :label="$t('gameWebsite')"></v-text-field>
     </v-card>
     <v-divider></v-divider>
-    <v-card title="게임 트레일러 영상 (YouTube)">
-      <v-card-text>
-        <p style="white-space: pre-line">스토어에 표시될 게임의 공식 YouTube 트레일러 영상입니다.<br/>https://youtu.be/abcedfg 또는 https://youtube.com/watch?v=abcdefg일 때 abcdefg를 입력하세요.</p>
-      </v-card-text>
-      <v-text-field v-model="responseGameVideoURL" label="게임 트레일러 영상 (YouTube)"></v-text-field>
+    <v-card style="white-space: pre-line" :title="$t('gameVideoURL')" :text="$t('gameVideoURLDesc')">
+      <v-text-field v-model="responseGameVideoURL" :label="$t('gameVideoURL')"></v-text-field>
     </v-card>
     <v-divider></v-divider>
-    <v-card title="게임 다운로드 링크" text="스토어에서 게임을 다운로드할 때 사용하는 게임 파일의 링크입니다. OneDrive, Google Drive 등 모든 링크를 사용할 수 있습니다.">
-      <v-text-field v-if="responseGamePlatformMac" v-model="responseGameDownloadMacURL" label="macOS"></v-text-field>
-      <v-text-field v-if="responseGamePlatformWindows" v-model="responseGameDownloadWinURL" label="Windows"></v-text-field>
+    <v-card :title="$t('gameDownloadURL')" :text="$t('gameDownloadURLDesc')">
+      <v-text-field v-if="responseGamePlatformMac" v-model="responseGameDownloadMacURL" :label="$t('gameDownloadMacURL')"></v-text-field>
+      <v-text-field v-if="responseGamePlatformWindows" v-model="responseGameDownloadWinURL" :label="$t('gameDownloadWinURL')"></v-text-field>
     </v-card>
     <v-divider></v-divider>
-    <v-card title="게임 포스터 이미지 링크" text="스토어에 표시될 게임의 메인 포스터입니다.">
-      <v-text-field v-model="responseGameImageURL" label="게임 포스터 이미지 링크"></v-text-field>
+    <v-card :title="$t('gameImageURL')" :text="$t('gameImageURLDesc')">
+      <v-text-field v-model="responseGameImageURL" :label="$t('gameImageURL')"></v-text-field>
     </v-card>
     <v-divider></v-divider>
-    <v-card title="게임의 실행 파일 이름" text="스토어가 실행할 게임 파일 이름입니다. 확장자는 기입하지 않습니다.">
-      <v-text-field v-model="responseGameBinaryName" label="게임 포스터 이미지 링크"></v-text-field>
+    <v-card :title="$t('gameBinaryName')" :text="$t('gameBinaryNameDesc')">
+      <v-text-field v-model="responseGameBinaryName" :label="$t('gameBinaryName')"></v-text-field>
     </v-card>
     <v-divider></v-divider>
-    <v-card title="게임 헤드라인" text="게임을 나타내는 한 문장을 입력하세요.">
-      <v-text-field v-model="responseGameHeadline" label="게임 헤드라인"></v-text-field>
+    <v-card :title="$t('gameHeadline')" :text="$t('gameHeadlineDesc')">
+      <v-text-field v-model="responseGameHeadline" :label="$t('gameHeadline')"></v-text-field>
     </v-card>
     <v-divider></v-divider>
-    <v-card title="게임 상세 설명" text="게임에 대해 자세히 설명하세요.">
+    <v-card :title="$t('gameDescription')" :text="$t('gameDescriptionDesc')">
       <MdPreview id="preview-only" :modelValue="responseGameDescription" theme="dark" />
       <v-divider></v-divider>
       <v-card-actions>
-        <v-btn @click="bIsMarkdownModalOpened = true" text="마크다운 편집하기" variant="tonal" />
+        <v-btn @click="bIsMarkdownModalOpened = true" :text="$t('edit-md')" variant="tonal" />
       </v-card-actions>
     </v-card>
     <v-spacer />
-    <v-btn tonal @click="postGame()" text="제출" />
+    <v-btn tonal @click="postGame()" :text="$t('submit')" />
 
     <!-- 마크다운 편집 모달 -->
     <v-dialog v-model="bIsMarkdownModalOpened">
@@ -199,7 +196,7 @@ onMounted(() => {
 
     <!-- 제출 모달 -->
     <v-dialog v-model="bIsGamePosting" persistent>
-      <v-card :title="'Submitting ' + responseGameTitle">
+      <v-card :title="$t('submitting') + responseGameTitle">
         <v-progress-circular indeterminate />
       </v-card>
     </v-dialog>
