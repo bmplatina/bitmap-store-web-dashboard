@@ -41,14 +41,17 @@ function openPreSubmitPreviewModal() {
   bIsPreSumbitPreviewModalOpened.value = true;
 }
 
+function formatDateToMySQL(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+}
+
 async function postGame(): Promise<boolean> {
   try {
     bIsPreSumbitPreviewModalOpened.value = true;
-
-    // 날짜 변환
-    const dateString: string = responseGameReleasedDate.value?.toLocaleDateString("ko-KR") as string;
-    const dateParsedArray: Array<string> = dateString.split(". ");
-    const isoDate: string = `${dateParsedArray[0]}-${dateParsedArray[1]}-${dateParsedArray[2].split('.')[0]}T00:00:00.000Z`;
 
     const postGame: Game = {
       gameId: responseGameId.value,
@@ -63,7 +66,7 @@ async function postGame(): Promise<boolean> {
       gamePublisher: responseGamePublisher.value,
       isEarlyAccess: responseIsEarlyAccess.value == true ? 1 : 0,
       isReleased: responseIsReleased.value == true ? 1 : 0,
-      gameReleasedDate: isoDate,
+      gameReleasedDate: formatDateToMySQL(responseGameReleasedDate.value as Date),
       gameWebsite: responseGameWebsite.value,
       gameVideoURL: responseGameVideoURL.value,
       gameDownloadMacURL: responseGameDownloadMacURL.value,
