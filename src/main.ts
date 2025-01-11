@@ -29,4 +29,4 @@ app.config.globalProperties.$filters = {
   },
 };
 
-app.use(router).use(store).use(vuetify).use(i18n).component("v-markdown-renderer", VueMarkdown).mount("#app");
+app.use(router).use(store).use(vuetify).use(i18n).mount("#app");

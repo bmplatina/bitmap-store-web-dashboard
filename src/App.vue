@@ -1,3 +1,29 @@
+<script setup lang="ts">
+import { ref } from "vue";
+import Sidebar from "@/components/Sidebar.vue";
+import { useI18n } from "vue-i18n";
+import { useLocale } from "vuetify";
+
+const { current } = useLocale();
+const { locale, t } = useI18n();
+
+const bIsSidebarOpened = ref(false);
+const toggleSidebarOpenState = () => {
+  bIsSidebarOpened.value = !bIsSidebarOpened.value;
+};
+
+const toggleLanguage = () => {
+  if(locale.value === 'ko') {
+    locale.value = 'en';
+    current.value = 'en';
+  }
+  else if(locale.value === 'en') {
+    locale.value = 'ko';
+    current.value = 'ko';
+  }
+};
+</script>
+
 <template>
   <v-app>
     <v-app-bar app color="primary" dark fixed>
@@ -16,24 +42,3 @@
     </v-main>
   </v-app>
 </template>
-
-<script setup lang="ts">
-import { ref } from "vue";
-import Sidebar from "@/components/Sidebar.vue";
-import GameEsd from "@/views/GameEsd.vue";
-import { useI18n } from "vue-i18n";
-
-const { locale, t } = useI18n();
-
-const bIsSidebarOpened = ref(false);
-const toggleSidebarOpenState = () => {
-  bIsSidebarOpened.value = !bIsSidebarOpened.value;
-};
-
-const toggleLanguage = () => {
-  if(locale.value === 'ko')
-    locale.value = 'en';
-  else if(locale.value === 'en')
-    locale.value = 'ko';
-};
-</script>
