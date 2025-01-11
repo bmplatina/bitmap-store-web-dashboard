@@ -30,30 +30,28 @@ onMounted(() => {
 </script>
 
 <template>
-  <div id="app">
-    <v-container fluid>
-      <v-row>
-        <!-- 게임 아이템을 넣을 공간 -->
-        <v-col v-for="game in state.gamesFetched" :key="game.gameId" :cols="3">
-          <div v-if="state.loading">
-            <v-skeleton-loader
-              max-width="400"
-              :height="'566px'"
-              type="image, article"
-            ></v-skeleton-loader>
-          </div>
-          <div v-else-if="state.error">
-            {{ state.error }}
-          </div>
-          <div v-else>
-            <!-- 정상 데이터를 표시 -->
-<!--            {{ game.gameTitle }}-->
-            <GameEsdDetails :gameObject="game" />
-          </div>
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
+  <v-container fluid>
+    <v-row>
+      <!-- 게임 아이템을 넣을 공간 -->
+      <v-col v-for="game in state.gamesFetched" :key="game.gameId" :cols="3">
+        <div v-if="state.loading">
+          <v-skeleton-loader
+            max-width="400"
+            :height="'566px'"
+            type="image, article"
+          ></v-skeleton-loader>
+        </div>
+        <div v-else-if="state.error">
+          {{ state.error }}
+        </div>
+        <div v-else>
+          <!-- 정상 데이터를 표시 -->
+          <!--            {{ game.gameTitle }}-->
+          <GameEsdDetails :gameObject="game" />
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <style scoped>

@@ -4,12 +4,10 @@
     "about": "비트맵 스토어에 관하여",
 
     "home": "홈",
-    "wiki": "위키",
-    "newsroom": "뉴스룸",
-    "blog": "블로그",
-    "games": "게임",
+    "registered-games": "게임 탐색",
+    "game-submit": "새로운 게임 등록",
+    "games-pending": "대기 중인 게임",
     "accounts": "어카운트",
-    "projects": "프로젝트 파일",
     "settings": "설정",
 
     "explore": "탐색",

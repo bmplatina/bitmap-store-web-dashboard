@@ -13,6 +13,7 @@ export default defineConfig({
       autoImport: true,
     }),
   ],
+  assetsInclude: ['**/*.png'],
   define: { 'process.env': {} },
   resolve: {
     alias: {

@@ -4,12 +4,10 @@
   "about": "About Bitmap Store",
 
   "home": "Home",
-  "wiki": "Wiki",
-  "newsroom": "Newsroom",
-  "blog": "Blog",
-  "games": "Games",
+  "registered-games": "Registered Games",
+  "game-submit": "Submit New Game",
+  "games-pending": "Pending Games",
   "accounts": "Accounts",
-  "projects": "Project Files",
   "settings": "Settings",
 
   "explore": "Explore",

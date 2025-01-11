@@ -12,6 +12,13 @@ const props = defineProps<{
 }>();
 
 /*
+ * Images
+ */
+import UnknownImage from '@/assets/unknownImage.png';
+import PlatformWindows11Image from '@/assets/platformWindows11.png';
+import PlatformMacOSImage from '@/assets/platformMac.png';
+
+/*
  * Released Ago
  */
 function releasedAgo(): number {
@@ -35,7 +42,7 @@ let bIsDetailModalOpened = ref(false);
   <v-card max-width="400">
     <v-img
       :src="gameObject.gameImageURL"
-      lazy-src="@/assets/unknownImage.png"
+      :lazy-src="UnknownImage"
       :alt="gameObject.gameTitle"
       cover
       @click="bIsDetailModalOpened = true"
@@ -45,14 +52,14 @@ let bIsDetailModalOpened = ref(false);
         <h2 class="title primary--text mb-2" @click="bIsDetailModalOpened = true">{{ gameObject.gameTitle }}</h2>
         <div class="d-flex align-center mb-2">
           <v-img
-            src="@/assets/platformWindows11.png"
+            :src="PlatformWindows11Image"
             v-if="props.gameObject.gamePlatformWindows == 1"
             :max-width="20"
             :max-height="20"
             style="margin-right: 8px"
           ></v-img>
           <v-img
-            src="@/assets/platformMac.png"
+            :src="PlatformMacOSImage"
             v-if="props.gameObject.gamePlatformMac == 1"
             :max-width="20"
             :max-height="20"
